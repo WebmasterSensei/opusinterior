@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { navLinks } from "@/lib/content";
 import { MenuIcon, CloseIcon } from "./icons";
+import Image from "next/image";
 
 type NavbarProps = {
   overlay?: boolean;
@@ -31,7 +32,7 @@ export default function Navbar({ overlay = false }: NavbarProps) {
       gsap.fromTo(
         el,
         { autoAlpha: 0, y: -28 },
-        { autoAlpha: 1, y: 0, duration: 1, delay: 0.15, ease: "power3.out" },
+        { autoAlpha: 1, y: 0, duration: 1, delay: 0.15, ease: "power3.out" }
       );
     }, el);
     return () => ctx.revert();
@@ -51,20 +52,18 @@ export default function Navbar({ overlay = false }: NavbarProps) {
     <header ref={navRef} className="fixed inset-x-0 top-0 z-50">
       <nav
         className={`transition-all duration-500 ${
-          solid ? "border-b border-line bg-ivory/85 shadow-sm backdrop-blur-xl" : "border-b border-transparent"
+          solid
+            ? "border-b border-line bg-ivory/85 shadow-sm backdrop-blur-xl"
+            : "border-b border-transparent"
         }`}
       >
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:h-20 lg:px-8">
-          <Link
-            href="/"
-            className={`font-display text-2xl tracking-tight transition-colors ${
-              onDark ? "text-ivory" : "text-ink"
-            }`}
-          >
-            Opus<span className="text-taupe">.</span>
-            <span className="ml-2 hidden align-middle font-sans text-[11px] font-semibold uppercase tracking-[0.28em] sm:inline-block">
-              Interiors
-            </span>
+          <Link href="/" className="transition-opacity hover:opacity-80">
+            <img
+              src="https://opusinteriors.uk/wp-content/smush-webp/2024/08/opusinteriors.png.webp"
+              alt="Opus Builders"
+              className="h-9 w-auto bg-transparent"
+            />
           </Link>
 
           <ul
@@ -115,14 +114,20 @@ export default function Navbar({ overlay = false }: NavbarProps) {
               onDark ? "text-ivory" : "text-ink"
             }`}
           >
-            {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+            {open ? (
+              <CloseIcon className="h-6 w-6" />
+            ) : (
+              <MenuIcon className="h-6 w-6" />
+            )}
           </button>
         </div>
       </nav>
 
       <div
         className={`fixed inset-0 top-18 flex flex-col bg-ivory px-6 pb-10 pt-10 transition-all duration-500 lg:hidden ${
-          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+          open
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       >
         <ul className="flex flex-col gap-2">
@@ -134,7 +139,7 @@ export default function Navbar({ overlay = false }: NavbarProps) {
                 style={{
                   transition: `transform .45s ease ${i * 0.05}s, opacity .45s ease ${i * 0.05}s`,
                   transform: open ? "none" : "translateY(12px)",
-                  opacity: open ? 1 : 0,
+                  opacity: open ? 1 : 0
                 }}
               >
                 <Link
@@ -151,10 +156,16 @@ export default function Navbar({ overlay = false }: NavbarProps) {
           })}
         </ul>
         <div className="mt-auto flex flex-col gap-3 border-t border-line pt-8">
-          <Link href="/contact" className="rounded-full bg-ink py-4 text-center text-sm font-semibold text-ivory">
+          <Link
+            href="/contact"
+            className="rounded-full bg-ink py-4 text-center text-sm font-semibold text-ivory"
+          >
             Get a Free Quote
           </Link>
-          <a href="tel:+442080012345" className="text-center text-sm font-medium text-muted">
+          <a
+            href="tel:+442080012345"
+            className="text-center text-sm font-medium text-muted"
+          >
             +44 (0)20 8001 2345
           </a>
         </div>
